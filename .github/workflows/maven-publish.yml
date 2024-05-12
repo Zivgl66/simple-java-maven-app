@@ -148,6 +148,6 @@ jobs:
         id: apply
         working-directory: "terraform"
         run: |
-          terraform taint "maven-app"
+          terraform taint aws_instance.instance
           terraform apply -var="docker_image_version=${{ steps.new_version.outputs.new_version }}" -auto-approve
 
