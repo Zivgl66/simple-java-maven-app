@@ -54,6 +54,7 @@ resource "aws_instance" "instance" {
     sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
   
     # Run the Docker image
+    echo "image vesrion var: ${var.docker_image_version}"
     sudo docker run -d -p 8000:8000 zivgl66/ziv-repo:simple-maven-${var.docker_image_version}
   EOF
 
