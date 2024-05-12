@@ -50,7 +50,7 @@ resource "aws_instance" "instance" {
     sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
   
     # Run the Docker image
-    sudo docker run -d -p 8000:8000 zivgl66/ziv-repo:simple-maven-1.0.0
+    sudo docker run -d -p 8000:8000 zivgl66/ziv-repo:simple-maven-${var.docker_image_version}
   EOF
 
 }
