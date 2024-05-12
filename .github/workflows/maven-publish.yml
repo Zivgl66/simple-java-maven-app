@@ -49,6 +49,7 @@ jobs:
             else
               echo "version_increment_type=none" >> $GITHUB_OUTPUT
             fi
+          fi
 
       - name: Increment version
         id: new_version
