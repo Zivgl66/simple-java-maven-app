@@ -41,7 +41,7 @@ jobs:
 
             # Determine the type of version increment needed
             if [[ "$base_branch" == "master" ]]; then
-              if [[ "$head_branch" =~ ^hotfix/ ]]; then
+              if [[ "$head_branch" =~ ^hotfix ]]; then
                 echo "version_increment_type=patch" >> $GITHUB_OUTPUT
               else
                 echo "version_increment_type=major" >> $GITHUB_OUTPUT
