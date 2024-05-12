@@ -147,5 +147,7 @@ jobs:
       - name: Terraform Apply
         id: apply
         working-directory: "terraform"
-        run: terraform apply -var="docker_image_version=${{ steps.new_version.outputs.new_version }}" -auto-approve
+        run:
+          terraform taint "maven-app"
+          terraform apply -var="docker_image_version=${{ steps.new_version.outputs.new_version }}" -auto-approve
 
