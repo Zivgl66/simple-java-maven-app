@@ -144,7 +144,7 @@ jobs:
       - name: Terraform Plan
         id: plan
         working-directory: "terraform"
-        run: terraform plan -no-color
+        run: terraform plan -var="docker_image_version=${{ steps.new_version.outputs.version }}" -no-color
         continue-on-error: true
 
       - name: Terraform Apply
