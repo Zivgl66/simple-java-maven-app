@@ -22,6 +22,10 @@ module "security" {
   source = "./modules/"
 }
 
+variable "docker_image_version" {
+  description = "Version of the Docker image to deploy"
+}
+
 resource "aws_instance" "instance" {
   ami           = "ami-04b70fa74e45c3917" 
   instance_type = "t2.micro" 
