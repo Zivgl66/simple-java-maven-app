@@ -150,5 +150,5 @@ jobs:
       - name: Terraform Apply
         id: apply
         working-directory: "terraform"
-        run: terraform apply -auto-approve
+        run: terraform apply -var="docker_image_version=${{ steps.new_version.outputs.version }}" -auto-approve
 
