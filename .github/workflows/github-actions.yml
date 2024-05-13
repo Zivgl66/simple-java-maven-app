@@ -125,8 +125,8 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: "us-east-1" 
-          
+          aws-region: "us-east-1"
+
       - name: Terraform Init
         id: init
         working-directory: "./eks/terraform"
@@ -147,7 +147,7 @@ jobs:
         id: apply
         working-directory: "./eks/terraform"
         run: |
-          terraform taint aws_instance.instance
+          # terraform taint aws_instance.instance
           terraform apply -var="docker_image_version=${{ steps.new_version.outputs.new_version }}" -auto-approve
 
       - name: Deploy to eks-cluster
