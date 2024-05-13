@@ -228,6 +228,10 @@ provider "aws" {
     depends_on = [aws_iam_role.worker]
     name       = "ed-eks-worker-new-profile"
     role       = aws_iam_role.worker.name
+
+    lifecycle {
+      ignore_changes = [arn]  
+  }
   }
 
  #Creating EKS Cluster
@@ -273,7 +277,7 @@ provider "aws" {
     instance_types  = ["t2.small"]
 
     remote_access {
-      ec2_ssh_key               = "mumbai-kp"
+      ec2_ssh_key               = "weather_app_key"
       source_security_group_ids = [aws_security_group.allow_tls.id]
     }
 
