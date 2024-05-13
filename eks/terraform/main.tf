@@ -1,9 +1,25 @@
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 4.0"
+    }
+ 
+  }
+ backend "s3" {
+    bucket                  = "ziv-tf-state"
+    key                     = "my-terraform-project"
+    region                  = "us-east-1"
+    }
+  required_version = ">= 1.2.0"
+}
+
 #Adding Provider details
 provider "aws" {
     region = "us-east-1"
   }
 
-variable "docker_image_version" {
+  variable "docker_image_version" {
   description = "Version of the Docker image to deploy"
 }
 
