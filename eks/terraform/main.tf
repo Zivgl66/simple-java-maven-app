@@ -3,6 +3,11 @@ provider "aws" {
     region = "us-east-1"
   }
 
+variable "docker_image_version" {
+  description = "Version of the Docker image to deploy"
+}
+
+
 #Create a custom VPC
   resource "aws_vpc" "myvpc" {
     cidr_block = "10.0.0.0/16"
