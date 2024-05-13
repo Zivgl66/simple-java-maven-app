@@ -57,4 +57,8 @@ resource "aws_instance" "instance" {
     sudo docker run -d -p 8000:8000 zivgl66/ziv-repo:simple-maven-${var.docker_image_version}
   EOF
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> dev

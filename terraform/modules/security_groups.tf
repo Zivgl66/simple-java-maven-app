@@ -36,4 +36,7 @@ resource "aws_security_group" "security_groups" {
         }
     }
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> dev
