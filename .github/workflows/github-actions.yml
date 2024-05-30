@@ -94,7 +94,7 @@ jobs:
 
       - name: Scan Dockerfile for vulnerabilities
         run: |
-          trivy config ./Dockerfile --exit-code 1 --severity CRITICAL .
+          trivy config ./ --exit-code 1 --severity CRITICAL .
 
       - name: Upload Trivy Report
         if: failure()
