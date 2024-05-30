@@ -193,12 +193,15 @@ jobs:
         env:
           IMAGE_NAME: simple-maven
           DOCKER_REPO: zivgl66/ziv-repo
-      
+
+      - name: Import signer key
+        run: echo "${{ secrets.SIGNER_KEY }}" > ~/.docker/trust/private/ziv.key
+        
       - name: Setup docker sign
         run: |
           export DOCKER_CONTENT_TRUST=1
-          export DOCKER_CONTENT_TRUST_ROOT_PASSPHRASE="${{ secrets.DOCKER_CONTENT_TRUST_ROOT_PASSPHRASE }}"
-          export DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE="${{ secrets.DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE }}"
+          # export DOCKER_CONTENT_TRUST_ROOT_PASSPHRASE="${{ secrets.DOCKER_CONTENT_TRUST_ROOT_PASSPHRASE }}"
+          # export DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE="${{ secrets.DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE }}"
 
       - name: Push Docker image
         run: |
