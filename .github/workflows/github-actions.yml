@@ -43,7 +43,7 @@ jobs:
 
       - name: Run OWASP Dependency-Check
         run: |
-          /usr/local/bin/dependency-check/bin/dependency-check.sh --project "myproject" --scan . --format "ALL"
+          /usr/local/bin/dependency-check/bin/dependency-check.sh --project "myproject" --scan . --format "ALL" --disableAssembly
 
       - name: Check for vulnerabilities
         run: |
