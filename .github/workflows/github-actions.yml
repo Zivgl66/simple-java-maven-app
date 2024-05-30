@@ -190,6 +190,9 @@ jobs:
         run: | 
           docker build -t myimage .
           docker tag myimage ${{ env.DOCKER_REPO }}:${{ env.IMAGE_NAME }}-${{ steps.new_version.outputs.new_version }}
+        env:
+          IMAGE_NAME: simple-maven
+          DOCKER_REPO: zivgl66/ziv-repo
       
       - name: Setup docker sign
         run: |
