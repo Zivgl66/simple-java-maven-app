@@ -203,6 +203,7 @@ jobs:
       - name: Push Docker image
         run: |
           # docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+          docker trust sign ${{ env.DOCKER_REPO }}:${{ env.IMAGE_NAME }}-${{ steps.new_version.outputs.new_version }}
           docker push ${{ env.DOCKER_REPO }}:${{ env.IMAGE_NAME }}-${{ steps.new_version.outputs.new_version }}
         env:
           IMAGE_NAME: simple-maven
