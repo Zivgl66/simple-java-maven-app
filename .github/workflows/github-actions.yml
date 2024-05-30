@@ -202,19 +202,22 @@ jobs:
 
       - name: Push Docker image
         run: |
-          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+          # docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
           docker push ${{ env.DOCKER_REPO }}:${{ env.IMAGE_NAME }}-${{ steps.new_version.outputs.new_version }}
-
-      - name: Build and Push Docker Image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          push: true
-          # build-args: VERSION=${{ steps.new_version.outputs.new_version }}
-          tags: ${{ env.DOCKER_REPO }}:${{ env.IMAGE_NAME }}-${{ steps.new_version.outputs.new_version }}
         env:
           IMAGE_NAME: simple-maven
           DOCKER_REPO: zivgl66/ziv-repo
+
+      # - name: Build and Push Docker Image
+      #   uses: docker/build-push-action@v5
+      #   with:
+      #     context: .
+      #     push: true
+      #     # build-args: VERSION=${{ steps.new_version.outputs.new_version }}
+      #     tags: ${{ env.DOCKER_REPO }}:${{ env.IMAGE_NAME }}-${{ steps.new_version.outputs.new_version }}
+      #   env:
+      #     IMAGE_NAME: simple-maven
+      #     DOCKER_REPO: zivgl66/ziv-repo
 
       # - name: Terraform fmt
       #   id: fmt
