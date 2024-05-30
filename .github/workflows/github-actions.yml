@@ -198,6 +198,9 @@ jobs:
         run: |
           mkdir -p ~/.docker/trust/private
           docker trust key generate ${{ env.DOCKER_REPO }}
+        env:
+          IMAGE_NAME: simple-maven
+          DOCKER_REPO: zivgl66/ziv-repo
 
       - name: Configure Docker
         run: |
