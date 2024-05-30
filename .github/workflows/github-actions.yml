@@ -21,7 +21,26 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
       - uses: hashicorp/setup-terraform@v3
+      
+      - name: Install OWASP Dependency-Check
+        run: |
+          wget https://github.com/jeremylong/DependencyCheck/releases/download/v6.5.1/dependency-check-6.5.1-release.zip
+          unzip dependency-check-6.5.1-release.zip
+          sudo mv dependency-check /usr/local/bin/dependency-check
 
+      - name: Run OWASP Dependency-Check
+        run: |
+          dependency-check/bin/dependency-check.sh --project "myproject" --scan . --format "ALL"
+
+      - name: Check for vulnerabilities
+        run: |
+          if grep -q "CRITICAL" dependency-check-report.html; then
+            echo "Critical vulnerabilities found!"
+            exit 1
+          else
+            echo "No critical vulnerabilities found."
+          fi
+          
       # Step to determine the current version
       - name: Read current version
         id: current_version
