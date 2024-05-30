@@ -190,7 +190,7 @@ jobs:
         run: mkdir -p ~/.docker/trust/private
 
       - name: Import signer key
-        run: echo "${{ secrets.SECRET_KEY_SIGN }}" > ~/.docker/trust/private/ziv.key
+        run: echo "${{ secrets.SECRET_KEY_SIGN }}" > ~/.docker/trust/private/ziv.pub
 
       - name: Build Docker image
         run: | 
