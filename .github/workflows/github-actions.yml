@@ -53,6 +53,13 @@ jobs:
           else
             echo "No critical vulnerabilities found."
           fi
+
+      - name: Upload Dependency-Check Report
+        if: failure()  # Upload report if there is a failure
+        uses: actions/upload-artifact@v2
+        with:
+          name: dependency-check-report
+          path: dependency-check-report.html
           
       # Step to determine the current version
       - name: Read current version
