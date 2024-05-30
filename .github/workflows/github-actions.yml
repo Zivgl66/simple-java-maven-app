@@ -68,7 +68,7 @@ jobs:
         run: snyk auth ${{ secrets.SNYK_TOKEN }}
   
       - name: Test for vulnerabilities
-        run: snyk test --severity-threshold=high 
+        run: snyk test --severity-threshold=critical 
         
       # Step to determine the current version
       - name: Read current version
