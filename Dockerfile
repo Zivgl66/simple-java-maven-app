@@ -16,7 +16,7 @@ RUN mvn clean package
 # RUN mvn -B versions:set -DnewVersion=$VERSION -DgenerateBackupPoms=false
 
 # Use an OpenJDK image as the final image for running the application
-FROM openjdk:11-jre-slim
+FROM openjdk:23-ea-22-oraclelinux8
 
 # Set the working directory in the container
 WORKDIR /app
