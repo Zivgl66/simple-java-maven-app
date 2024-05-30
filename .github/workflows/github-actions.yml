@@ -69,6 +69,15 @@ jobs:
   
       - name: Test for vulnerabilities
         run: snyk test --severity-threshold=critical 
+      - name: Scan Dockerfile for vulnerabilities
+        run: snyk container test --file=Dockerfile --severity-threshold=high
+
+      - name: Upload Snyk Report
+        if: failure()
+        uses: actions/upload-artifact@v2
+        with:
+          name: snyk-report
+          path: snyk-output.txt
         
       # Step to determine the current version
       - name: Read current version
@@ -145,25 +154,7 @@ jobs:
             echo "new_version=${{ steps.current_version.outputs.current_version }}" >> $GITHUB_OUTPUT
           fi
           echo "new version is: ${{ steps.new_version.outputs.new_version }}"
-      - name: Install Trivy
-        run: |
-          sudo apt-get update -y
-          sudo apt-get install -y wget apt-transport-https gnupg lsb-release
-          wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
-          echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main | sudo tee -a /etc/apt/sources.list.d/trivy.list
-          sudo apt-get update -y
-          sudo apt-get install -y trivy
-    
-      - name: Scan Dockerfile for vulnerabilities
-        run: |
-          trivy config --exit-code 1 --severity CRITICAL --no-progress .
-    
-      - name: Upload Trivy Report
-        if: failure()
-        uses: actions/upload-artifact@v2
-        with:
-          name: trivy-report
-          path: trivy-config-results.json
+
           
       - name: Login to Docker Hub
         uses: docker/login-action@v3
