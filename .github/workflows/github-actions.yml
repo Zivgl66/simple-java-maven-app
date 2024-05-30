@@ -184,13 +184,7 @@ jobs:
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-          
-      - name: Create Docker trust directory
-        run: mkdir -p ~/.docker/trust/private
-
-      - name: Import signer key
-        run: echo "${{ secrets.SECRET_KEY_SIGN }}" > ~/.docker/trust/private/ziv.pub
+          password: ${{ secrets.DOCKER_PASSWORD }}          
 
       - name: Build Docker image
         run: | 
@@ -199,12 +193,28 @@ jobs:
         env:
           IMAGE_NAME: simple-maven
           DOCKER_REPO: zivgl66/ziv-repo
-        
-      - name: Setup docker sign
+          
+      - name: Generate signer key
+        run: |
+          mkdir -p ~/.docker/trust/private
+          docker trust key generate ${{ env.DOCKER_REPO }}
+
+      - name: Configure Docker
         run: |
           export DOCKER_CONTENT_TRUST=1
-          # export DOCKER_CONTENT_TRUST_ROOT_PASSPHRASE="${{ secrets.DOCKER_CONTENT_TRUST_ROOT_PASSPHRASE }}"
-          # export DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE="${{ secrets.DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE }}"
+          export DOCKER_CONTENT_TRUST_ROOT_PASSPHRASE=root_passphrase
+          export DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE=myrepository_myimage_passphrase
+        
+      # - name: Setup docker sign
+      #   run: |
+      #     #export DOCKER_CONTENT_TRUST=1
+      #     #export DOCKER_CONTENT_TRUST_ROOT_PASSPHRASE="${{ secrets.DOCKER_CONTENT_TRUST_ROOT_PASSPHRASE }}"
+      #     #export DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE="${{ secrets.DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE }}"
+      #     export DOCKER_CONTENT_TRUST=1
+      #     export DOCKER_CONTENT_TRUST_SERVER="https://notary.example.com"
+      #     export DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE="some_password5"
+      #     docker trust key load --name devops ./new_devops_private.key
+      #     docker push
 
       - name: Push Docker image
         run: |
