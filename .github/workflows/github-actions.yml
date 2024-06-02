@@ -209,7 +209,7 @@ jobs:
           docker buildx build --platform linux/amd64 -t ${{ env.DOCKER_REPO }}:${{ env.IMAGE_NAME }}-${{ steps.new_version.outputs.new_version }} --load .
         env:
           IMAGE_NAME: simple-maven
-          DOCKER_REPO: zivgl66/repo
+          DOCKER_REPO: zivgl66/repo2
 
       - name: Enable Docker Content Trust and Push Image
         run: |
@@ -220,14 +220,14 @@ jobs:
           docker push ${{ env.DOCKER_REPO }}:${{ env.IMAGE_NAME }}-${{ steps.new_version.outputs.new_version }}
         env:
           IMAGE_NAME: simple-maven
-          DOCKER_REPO: zivgl66/repo
+          DOCKER_REPO: zivgl66/repo2
 
       - name: Verify Docker Image
         run: |
           docker trust inspect --pretty ${{ env.DOCKER_REPO }}:${{ env.IMAGE_NAME }}-${{ steps.new_version.outputs.new_version }}
         env:
           IMAGE_NAME: simple-maven
-          DOCKER_REPO: zivgl66/repo
+          DOCKER_REPO: zivgl66/repo2
           
 
         
